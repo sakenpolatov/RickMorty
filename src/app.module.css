@@ -1,3 +1,8 @@
+@import url('./reset.css');
+
 .app {
+	margin: 0;
 	text-align: center;
+	background-color: rgb(245, 145, 6);
+	min-height: 100vh;
 }
