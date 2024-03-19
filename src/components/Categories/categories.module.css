@@ -1,0 +1,9 @@
+.categories {
+	font-size: 16px;
+	font-family: 'Poppins', sans-serif;
+	height: 100vh;
+}
+
+.list > li {
+	color: black;
+}
