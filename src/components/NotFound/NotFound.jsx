@@ -1,5 +1,9 @@
 import React from 'react'
 
 export function NotFound() {
-	return <div>notfound</div>
+	return (
+		<div>
+			<h1>404 - Страница не найдена</h1>
+		</div>
+	)
 }
