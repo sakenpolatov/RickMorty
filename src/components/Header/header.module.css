@@ -1,0 +1,21 @@
+header {
+	display: flex;
+	margin: 0 auto;
+	padding: 20px;
+
+	max-width: 1000px;
+	max-height: 200px;
+}
+
+.nav {
+	display: flex;
+	justify-content: center;
+}
+.nav > ul {
+	display: flex;
+	justify-content: center;
+	gap: 50px;
+	font-size: 24px;
+	font-family: 'Poppins', sans-serif;
+	color: #000;
+}
