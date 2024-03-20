@@ -14,8 +14,7 @@ header {
 .nav > ul {
 	display: flex;
 	justify-content: center;
-	gap: 50px;
-	font-size: 24px;
+	gap: 36px;
+	font-size: 36px;
 	font-family: 'Poppins', sans-serif;
-	color: #000;
 }
