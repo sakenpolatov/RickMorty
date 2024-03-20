@@ -1,0 +1,75 @@
+.details {
+	display: flex;
+	justify-content: center;
+	height: 600px;
+	width: 1000px;
+	margin: 0 auto;
+	padding: 20px;
+	font-family: 'Poppins', sans-serif;
+	align-items: center;
+}
+
+.content {
+	max-width: 1000px;
+	max-height: 800px;
+	border: 5px solid #00b646;
+	border-radius: 25px;
+	margin-top: 50px;
+	padding: 50px;
+	font-size: 24px;
+	background-color: rgba(0, 112, 112, 0.856);
+}
+p {
+	color: rgba(255, 255, 255);
+	font-weight: 500;
+}
+u {
+	color: #0d039ec9;
+}
+
+.content h2 {
+	font-size: 48px;
+	margin-bottom: 20px;
+	font-weight: 800;
+	color: rgba(255, 255, 255);
+}
+.img {
+	margin-top: 5px;
+	border-radius: 25px;
+	border: 5px solid #00b646;
+}
+
+.characters {
+	display: flex;
+	width: 800px;
+	height: 300px;
+}
+.info {
+	margin-left: 20px;
+	height: 300px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 10px;
+	align-items: center;
+}
+
+.locations {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 25px;
+	width: 800px;
+	height: 300px;
+	align-items: center;
+}
+
+.episodes {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 25px;
+	width: 800px;
+	height: 300px;
+	align-items: center;
+}
