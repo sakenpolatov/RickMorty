@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from './categories.module.css'
 import { useParams, Link } from 'react-router-dom'
-import charactersData from '../../assets/data/characters.json'
-import locationData from '../../assets/data/locations.json'
-import episodeData from '../../assets/data/episodes.json'
-
+import { Loading } from '../Loading/Loading'
 export function Categories() {
 	const { category } = useParams()
 	const [data, setData] = useState([])
@@ -14,16 +11,22 @@ export function Categories() {
 		const fetchData = async () => {
 			try {
 				setIsLoading(true)
-				let categoryData = []
-
-				if (category === 'characters') {
-					categoryData = charactersData
-				} else if (category === 'locations') {
-					categoryData = locationData
-				} else if (category === 'episodes') {
-					categoryData = episodeData
+				const response = await fetch(
+					'https://65faa45d3909a9a65b1affc6.mockapi.io/rickandmorty/data'
+				)
+				if (!response.ok) {
+					throw new Error('Failed to fetch data')
 				}
+				const jsonData = await response.json()
 
+				let categoryData = []
+				if (category === 'characters') {
+					categoryData = jsonData[0]
+				} else if (category === 'locations') {
+					categoryData = jsonData[1]
+				} else if (category === 'episodes') {
+					categoryData = jsonData[2]
+				}
 				setData(categoryData)
 				setIsLoading(false)
 			} catch (error) {
@@ -38,7 +41,7 @@ export function Categories() {
 	return (
 		<div>
 			{isLoading ? (
-				<p>Loading...</p>
+				<Loading />
 			) : (
 				<div className={styles.list}>
 					<ul className={styles.categories}>
