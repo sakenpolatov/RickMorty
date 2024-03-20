@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import styles from './categories.module.css'
 import { useParams, Link } from 'react-router-dom'
 import { Loading } from '../Loading/Loading'
+import { NotFound } from '../NotFound/NotFound'
+
 export function Categories() {
 	const { category } = useParams()
 	const [data, setData] = useState([])
@@ -37,6 +39,14 @@ export function Categories() {
 
 		fetchData()
 	}, [category])
+
+	if (
+		category !== 'characters' &&
+		category !== 'episodes' &&
+		category !== 'locations'
+	) {
+		return <NotFound />
+	}
 
 	return (
 		<div>
