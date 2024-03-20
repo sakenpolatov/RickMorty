@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import icon from '../../assets/rick.svg'
+import icon from '../../assets/images/rick.svg'
 import styles from './header.module.css'
 
 export function Header() {
