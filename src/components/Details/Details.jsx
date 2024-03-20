@@ -121,7 +121,9 @@ export function Details() {
 							)}
 						</>
 					) : (
-						<p>Item not found.</p>
+						<div className={styles.episodes}>
+							<p>Item not found.</p>
+						</div>
 					)}
 				</div>
 			)}
