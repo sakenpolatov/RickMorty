@@ -1,16 +1,13 @@
 import React, { useState } from 'react'
 import styles from './sort.module.css'
 
-export function Sort({ value, onChangeSort }) {
+export function Sort({ sortType, onChangeSort }) {
 	const [open, setOpen] = useState(false)
-	const list = [
-		{ name: 'default', sortProperty: 'default' },
-		{ name: 'a-z', sortProperty: 'title' },
-		{ name: 'z-a', sortProperty: '-title' }
-	]
+	const list = [{ name: 'default' }, { name: 'a-z' }, { name: 'z-a' }]
 
-	const onClickListItem = i => {
-		onChangeSort(i)
+	const onClickListItem = name => {
+		const newSortType = list.find(item => item.name === name)
+		onChangeSort(newSortType)
 		setOpen(false)
 	}
 
@@ -18,20 +15,18 @@ export function Sort({ value, onChangeSort }) {
 		<div className={styles.sort}>
 			<div className={styles.sort__label}>
 				<b>Sort by:</b>
-				<span onClick={() => setOpen(!open)}>{value.name}</span>
+				<span onClick={() => setOpen(!open)}>{sortType.name}</span>
 			</div>
 			{open && (
 				<div className={styles.sort__popup}>
 					<ul>
-						{list.map(obj => (
+						{list.map(item => (
 							<li
-								key={obj.i}
-								onClick={() => onClickListItem(obj)}
-								className={
-									value.sortProperty === obj.sortProperty ? styles.active : ''
-								}
+								key={item.name}
+								onClick={() => onClickListItem(item.name)}
+								className={sortType.name === item.name ? styles.active : ''}
 							>
-								{obj.name}
+								{item.name}
 							</li>
 						))}
 					</ul>
