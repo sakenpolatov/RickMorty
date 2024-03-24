@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+// Categories.js
+import React, { useState, useEffect, useMemo } from 'react'
 import styles from './categories.module.css'
 import { useParams, Link } from 'react-router-dom'
 import { Loading } from '../Loading/Loading'
@@ -7,8 +8,7 @@ import { Sort } from '../Sort/Sort'
 
 export function Categories() {
 	const initialSort = {
-		name: 'default',
-		sortProperty: 'default'
+		name: 'default'
 	}
 	const { category } = useParams()
 	const [data, setData] = useState([])
@@ -17,13 +17,11 @@ export function Categories() {
 
 	useEffect(() => {
 		setIsLoading(true)
-		const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc'
-		const sortBy = sortType.sortProperty.replace('-', '')
 		const fetchData = async () => {
 			try {
 				setIsLoading(true)
 				const response = await fetch(
-					`https://65faa45d3909a9a65b1affc6.mockapi.io/rickandmorty/data?${category}&sortBy=${sortBy}&order=${order}`
+					`https://65faa45d3909a9a65b1affc6.mockapi.io/rickandmorty/data`
 				)
 				if (!response.ok) {
 					throw new Error('Failed to fetch data')
@@ -47,13 +45,27 @@ export function Categories() {
 		}
 
 		fetchData()
-	}, [category, sortType])
+	}, [category])
 
-	if (
-		category !== 'characters' &&
-		category !== 'episodes' &&
-		category !== 'locations'
-	) {
+	const sortedData = useMemo(() => {
+		if (sortType.name === 'default') {
+			return data
+		}
+
+		let sorted = [...data]
+		sorted.sort((a, b) => {
+			if (sortType.name === 'a-z') {
+				return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+			} else if (sortType.name === 'z-a') {
+				return b.name.toLowerCase().localeCompare(a.name.toLowerCase())
+			}
+			return 0
+		})
+
+		return sorted
+	}, [sortType, data])
+
+	if (!['characters', 'episodes', 'locations'].includes(category)) {
 		return <NotFound />
 	}
 
@@ -64,11 +76,11 @@ export function Categories() {
 			) : (
 				<div className={styles.list}>
 					<div className={styles.sort}>
-						<Sort value={sortType} onChangeSort={i => setSortType(i)} />
+						<Sort sortType={sortType} onChangeSort={setSortType} />
 					</div>
 					<div>
 						<ul className={styles.categories}>
-							{data.map(item => (
+							{sortedData.map(item => (
 								<li key={item.id}>
 									<Link to={`/${category}/${item.id}`}>{item.name}</Link>
 								</li>
@@ -77,6 +89,7 @@ export function Categories() {
 					</div>
 				</div>
 			)}
+			{console.log(sortedData)}
 		</div>
 	)
 }
