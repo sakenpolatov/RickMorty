@@ -15,14 +15,14 @@ export function Categories() {
 	const [isLoading, setIsLoading] = useState(true)
 	const [sortType, setSortType] = useState(initialSort)
 
+	const urlData = `https://65faa45d3909a9a65b1affc6.mockapi.io/rickandmorty/data`
+
 	useEffect(() => {
 		setIsLoading(true)
 		const fetchData = async () => {
 			try {
 				setIsLoading(true)
-				const response = await fetch(
-					`https://65faa45d3909a9a65b1affc6.mockapi.io/rickandmorty/data`
-				)
+				const response = await fetch(urlData)
 				if (!response.ok) {
 					throw new Error('Failed to fetch data')
 				}
