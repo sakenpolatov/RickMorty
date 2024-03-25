@@ -14,13 +14,13 @@ export function Header() {
 			<div className={styles.nav}>
 				<ul>
 					<li>
-						<Link to='/characters'>Characters</Link>
+						<Link to='/categories/characters'>Characters</Link>
 					</li>
 					<li>
-						<Link to='/locations'>Locations</Link>
+						<Link to='/categories/locations'>Locations</Link>
 					</li>
 					<li>
-						<Link to='/episodes'>Episodes</Link>
+						<Link to='/categories/episodes'>Episodes</Link>
 					</li>
 				</ul>
 			</div>
