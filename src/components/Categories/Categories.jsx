@@ -82,14 +82,15 @@ export function Categories() {
 						<ul className={styles.categories}>
 							{sortedData.map(item => (
 								<li key={item.id}>
-									<Link to={`/${category}/${item.id}`}>{item.name}</Link>
+									<Link to={`/categories/${category}/${item.id}`}>
+										{item.name}
+									</Link>
 								</li>
 							))}
 						</ul>
 					</div>
 				</div>
 			)}
-			{console.log(sortedData)}
 		</div>
 	)
 }
