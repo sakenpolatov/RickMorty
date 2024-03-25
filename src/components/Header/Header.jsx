@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import icon from '../../assets/images/rick.svg'
 import styles from './header.module.css'
+import { AuthStatus } from '../../context/AuthStatus/AuthStatus'
 
 export function Header() {
 	return (
@@ -23,6 +24,9 @@ export function Header() {
 						<Link to='/categories/episodes'>Episodes</Link>
 					</li>
 				</ul>
+			</div>
+			<div className={styles.auth}>
+				<AuthStatus />
 			</div>
 		</header>
 	)
