@@ -1,12 +1,12 @@
 // Categories.js
 import React, { useState, useEffect, useMemo } from 'react'
 import styles from './categories.module.css'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { Loading } from '../../Loading/Loading'
-import { NotFound } from '../../pages/NotFound/NotFound'
 import { Sort } from '../../Sort/Sort'
 
 export function Categories() {
+	const navigate = useNavigate()
 	const initialSort = {
 		name: 'default'
 	}
@@ -66,7 +66,7 @@ export function Categories() {
 	}, [sortType, data])
 
 	if (!['characters', 'episodes', 'locations'].includes(category)) {
-		return <NotFound />
+		navigate('/notfound')
 	}
 
 	return (
