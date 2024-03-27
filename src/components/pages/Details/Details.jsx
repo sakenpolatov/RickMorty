@@ -1,5 +1,5 @@
 import styles from './details.module.css'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useTransition } from 'react'
 import { useParams } from 'react-router-dom'
 import { Loading } from '../../Loading/Loading'
 
@@ -7,61 +7,64 @@ export function Details() {
 	const { category, id } = useParams()
 	const [details, setDetails] = useState(null)
 	const [isLoading, setIsLoading] = useState(true)
+	const [isPending, startTransition] = useTransition()
 
 	useEffect(() => {
-		const fetchData = async () => {
-			setIsLoading(true)
+		startTransition(() => {
+			const fetchData = async () => {
+				setIsLoading(true)
 
-			try {
-				const response = await fetch(
-					`https://65faa45d3909a9a65b1affc6.mockapi.io/rickandmorty/data`
-				)
+				try {
+					const response = await fetch(
+						`https://65faa45d3909a9a65b1affc6.mockapi.io/rickandmorty/data`
+					)
 
-				if (!response.ok) {
-					throw new Error('Ошибка получения данных')
-				}
-
-				const jsonData = await response.json()
-
-				if (!Array.isArray(jsonData) || jsonData.length !== 3) {
-					throw new Error('Неверная структура данных')
-				}
-
-				let categoryData = null
-
-				if (category === 'characters') {
-					categoryData = jsonData[0]
-				} else if (category === 'locations') {
-					categoryData = jsonData[1]
-				} else if (category === 'episodes') {
-					categoryData = jsonData[2]
-				}
-
-				if (categoryData) {
-					const item = categoryData.find(item => item.id === parseInt(id))
-					if (item) {
-						setDetails(item)
-					} else {
-						throw new Error(
-							`Элемент с таким id ${id} не найден в категории ${category} в базе`
-						)
+					if (!response.ok) {
+						throw new Error('Ошибка получения данных')
 					}
-				} else {
-					throw new Error(`Данные в категории ${category} не найдены в базе`)
-				}
-			} catch (error) {
-				console.error('Ошибка получения данных:', error)
-			} finally {
-				setIsLoading(false)
-			}
-		}
 
-		fetchData()
-	}, [category, id])
+					const jsonData = await response.json()
+
+					if (!Array.isArray(jsonData) || jsonData.length !== 3) {
+						throw new Error('Неверная структура данных')
+					}
+
+					let categoryData = null
+
+					if (category === 'characters') {
+						categoryData = jsonData[0]
+					} else if (category === 'locations') {
+						categoryData = jsonData[1]
+					} else if (category === 'episodes') {
+						categoryData = jsonData[2]
+					}
+
+					if (categoryData) {
+						const item = categoryData.find(item => item.id === parseInt(id))
+						if (item) {
+							setDetails(item)
+						} else {
+							throw new Error(
+								`Элемент с таким id ${id} не найден в категории ${category} в базе`
+							)
+						}
+					} else {
+						throw new Error(`Данные в категории ${category} не найдены в базе`)
+					}
+				} catch (error) {
+					console.error('Ошибка получения данных:', error)
+				} finally {
+					setIsLoading(false)
+				}
+			}
+
+			fetchData()
+		})
+	}, [category, id, startTransition])
 
 	return (
 		<div className={styles.details}>
-			{isLoading ? (
+			{isPending || isLoading ? (
 				<Loading />
 			) : (
 				<div className={styles.content}>
