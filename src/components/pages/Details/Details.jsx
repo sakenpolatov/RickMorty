@@ -1,7 +1,7 @@
 import styles from './details.module.css'
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Loading } from '../Loading/Loading'
+import { Loading } from '../../Loading/Loading'
 
 export function Details() {
 	const { category, id } = useParams()

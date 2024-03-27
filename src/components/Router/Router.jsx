@@ -1,9 +1,9 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { Home } from '../Home/Home'
-import { Categories } from '../Categories/Categories'
-import { Details } from '../Details/Details'
-import { NotFound } from '../NotFound/NotFound'
+import { Home } from '../pages/Home/Home'
+import { Categories } from '../pages/Categories/Categories'
+import { Details } from '../pages/Details/Details'
+import { NotFound } from '../pages/NotFound/NotFound'
 import { Login } from '../Login/Login'
 import { PrivateRoute } from '../PrivateRoute/PrivateRoute'
 

@@ -2,9 +2,9 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import styles from './categories.module.css'
 import { useParams, Link } from 'react-router-dom'
-import { Loading } from '../Loading/Loading'
-import { NotFound } from '../NotFound/NotFound'
-import { Sort } from '../Sort/Sort'
+import { Loading } from '../../Loading/Loading'
+import { NotFound } from '../../pages/NotFound/NotFound'
+import { Sort } from '../../Sort/Sort'
 
 export function Categories() {
 	const initialSort = {
