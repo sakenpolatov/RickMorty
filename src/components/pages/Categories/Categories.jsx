@@ -1,5 +1,4 @@
-// Categories.js
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo, useTransition } from 'react'
 import styles from './categories.module.css'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { Loading } from '../../Loading/Loading'
@@ -14,38 +13,40 @@ export function Categories() {
 	const [data, setData] = useState([])
 	const [isLoading, setIsLoading] = useState(true)
 	const [sortType, setSortType] = useState(initialSort)
+	const [isPending, startTransition] = useTransition()
 
 	const urlData = `https://65faa45d3909a9a65b1affc6.mockapi.io/rickandmorty/data`
 
 	useEffect(() => {
-		setIsLoading(true)
-		const fetchData = async () => {
-			try {
-				setIsLoading(true)
-				const response = await fetch(urlData)
-				if (!response.ok) {
-					throw new Error('Failed to fetch data')
-				}
-				const jsonData = await response.json()
+		startTransition(() => {
+			setIsLoading(true)
+			const fetchData = async () => {
+				try {
+					const response = await fetch(urlData)
+					if (!response.ok) {
+						throw new Error('Failed to fetch data')
+					}
+					const jsonData = await response.json()
 
-				let categoryData = []
-				if (category === 'characters') {
-					categoryData = jsonData[0]
-				} else if (category === 'locations') {
-					categoryData = jsonData[1]
-				} else if (category === 'episodes') {
-					categoryData = jsonData[2]
+					let categoryData = []
+					if (category === 'characters') {
+						categoryData = jsonData[0]
+					} else if (category === 'locations') {
+						categoryData = jsonData[1]
+					} else if (category === 'episodes') {
+						categoryData = jsonData[2]
+					}
+					setData(categoryData)
+				} catch (error) {
+					console.error('Ошибка получения данных:', error)
+				} finally {
+					setIsLoading(false)
 				}
-				setData(categoryData)
-				setIsLoading(false)
-			} catch (error) {
-				console.error('Ошибка получения данных:', error)
-				setIsLoading(false)
 			}
-		}
 
-		fetchData()
-	}, [category])
+			fetchData()
+		})
+	}, [category, startTransition])
 
 	const sortedData = useMemo(() => {
 		if (sortType.name === 'default') {
@@ -71,7 +72,7 @@ export function Categories() {
 
 	return (
 		<div>
-			{isLoading ? (
+			{isPending || isLoading ? (
 				<Loading />
 			) : (
 				<div className={styles.list}>
