@@ -1,6 +1,8 @@
 import React, { lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { PrivateRoute } from '../PrivateRoute/PrivateRoute'
+import { CategoriesWrapper } from '../pages/Categories/CategoriesWrapper'
+import { DetailsWrapper } from '../pages/Details/DetailsWrapper'
 
 const Home = lazy(() =>
 	import('../pages/Home/Home').then(module => ({
@@ -8,16 +10,6 @@ const Home = lazy(() =>
 	}))
 )
 
-const Categories = lazy(() =>
-	import('../pages/Categories/Categories').then(module => ({
-		default: module.Categories
-	}))
-)
-const Details = lazy(() =>
-	import('../pages/Details/Details').then(module => ({
-		default: module.Details
-	}))
-)
 const Login = lazy(() =>
 	import('../Login/Login').then(module => ({
 		default: module.Login
@@ -37,7 +29,7 @@ export function Router() {
 				path='/categories/:category'
 				element={
 					<PrivateRoute>
-						<Categories />
+						<CategoriesWrapper />
 					</PrivateRoute>
 				}
 			/>
@@ -45,7 +37,7 @@ export function Router() {
 				path='/categories/:category/:id'
 				element={
 					<PrivateRoute>
-						<Details />
+						<DetailsWrapper />
 					</PrivateRoute>
 				}
 			/>
