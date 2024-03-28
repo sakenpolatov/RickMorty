@@ -1,97 +1,101 @@
-import React, { useState, useEffect, useMemo, useTransition } from 'react'
-import styles from './categories.module.css'
-import { useParams, Link, useNavigate } from 'react-router-dom'
-import { Loading } from '../../Loading/Loading'
-import { Sort } from '../../Sort/Sort'
+import React, { useState, useEffect, useMemo, useTransition } from "react";
+import styles from "./categories.module.css";
+import axios from "axios";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { Loading } from "../../Loading/Loading";
+import { Sort } from "../../Sort/Sort";
 
 export function Categories() {
-	const navigate = useNavigate()
-	const initialSort = {
-		name: 'default'
-	}
-	const { category } = useParams()
-	const [data, setData] = useState([])
-	const [isLoading, setIsLoading] = useState(true)
-	const [sortType, setSortType] = useState(initialSort)
-	const [isPending, startTransition] = useTransition()
+  const navigate = useNavigate();
+  const initialSort = {
+    name: "default",
+  };
+  const { category } = useParams();
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [sortType, setSortType] = useState(initialSort);
+  const [isPending, startTransition] = useTransition();
 
-	const urlData = `https://65faa45d3909a9a65b1affc6.mockapi.io/rickandmorty/data`
+  useEffect(() => {
+    startTransition(() => {
+      setIsLoading(true);
+      try {
+        axios({
+          method: "GET",
+          url: `https://rickandmortyapi.com/api/${category}`,
+          params: { page: 1 },
+        })
+          .then((response) => {
+            const jsonData = response.data;
+            let categoryData = [];
+            if (
+              category === "character" ||
+              category === "location" ||
+              category === "episode"
+            ) {
+              categoryData = jsonData.results;
+            } else {
+              categoryData = jsonData;
+            }
+            setData(categoryData);
+          })
+          .catch((error) => {
+            console.error("Ошибка получения данных:", error);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
+      } catch (error) {
+        console.error("Ошибка получения данных:", error);
+        setIsLoading(false);
+      }
+    });
+  }, [category, startTransition]);
 
-	useEffect(() => {
-		startTransition(() => {
-			setIsLoading(true)
-			const fetchData = async () => {
-				try {
-					const response = await fetch(urlData)
-					if (!response.ok) {
-						throw new Error('Failed to fetch data')
-					}
-					const jsonData = await response.json()
+  const sortedData = useMemo(() => {
+    if (sortType.name === "default") {
+      return data;
+    }
 
-					let categoryData = []
-					if (category === 'characters') {
-						categoryData = jsonData[0]
-					} else if (category === 'locations') {
-						categoryData = jsonData[1]
-					} else if (category === 'episodes') {
-						categoryData = jsonData[2]
-					}
-					setData(categoryData)
-				} catch (error) {
-					console.error('Ошибка получения данных:', error)
-				} finally {
-					setIsLoading(false)
-				}
-			}
+    let sorted = [...data];
+    sorted.sort((a, b) => {
+      if (sortType.name === "a-z") {
+        return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+      } else if (sortType.name === "z-a") {
+        return b.name.toLowerCase().localeCompare(a.name.toLowerCase());
+      }
+      return 0;
+    });
 
-			fetchData()
-		})
-	}, [category, startTransition, urlData])
+    return sorted;
+  }, [sortType, data]);
 
-	const sortedData = useMemo(() => {
-		if (sortType.name === 'default') {
-			return data
-		}
+  if (!["character", "episode", "location"].includes(category)) {
+    navigate("/notfound");
+  }
 
-		let sorted = [...data]
-		sorted.sort((a, b) => {
-			if (sortType.name === 'a-z') {
-				return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
-			} else if (sortType.name === 'z-a') {
-				return b.name.toLowerCase().localeCompare(a.name.toLowerCase())
-			}
-			return 0
-		})
-
-		return sorted
-	}, [sortType, data])
-
-	if (!['characters', 'episodes', 'locations'].includes(category)) {
-		navigate('/notfound')
-	}
-
-	return (
-		<div>
-			{isPending || isLoading ? (
-				<Loading />
-			) : (
-				<div className={styles.list}>
-					<div className={styles.sort}>
-						<Sort sortType={sortType} onChangeSort={setSortType} />
-					</div>
-					<div>
-						<ul className={styles.categories}>
-							{sortedData.map(item => (
-								<li key={item.id}>
-									<Link to={`/categories/${category}/${item.id}`}>
-										{item.name}
-									</Link>
-								</li>
-							))}
-						</ul>
-					</div>
-				</div>
-			)}
-		</div>
-	)
+  return (
+    <div>
+      {isPending || isLoading ? (
+        <Loading />
+      ) : (
+        <div className={styles.list}>
+          <div className={styles.sort}>
+            <Sort sortType={sortType} onChangeSort={setSortType} />
+          </div>
+          <div>
+            <ul className={styles.categories}>
+              {sortedData.map((item) => (
+                <li key={item.id}>
+                  <Link to={`/categories/${category}/${item.id}`}>
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
