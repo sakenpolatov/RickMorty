@@ -1,30 +1,14 @@
-import React, { lazy } from 'react'
+import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { PrivateRoute } from '../PrivateRoute/PrivateRoute'
 import { CategoriesWrapper } from '../pages/Categories/CategoriesWrapper'
 import { DetailsWrapper } from '../pages/Details/DetailsWrapper'
-
-const Home = lazy(() =>
-	import('../pages/Home/Home').then(module => ({
-		default: module.Home
-	}))
-)
-
-const Login = lazy(() =>
-	import('../Login/Login').then(module => ({
-		default: module.Login
-	}))
-)
-const NotFound = lazy(() =>
-	import('../pages/NotFound/NotFound').then(module => ({
-		default: module.NotFound
-	}))
-)
+import { Component } from '../../utils/Component'
 
 export function Router() {
 	return (
 		<Routes>
-			<Route path='/' element={<Home />} />
+			<Route path='/' element={<Component name='Home' />} />
 			<Route
 				path='/categories/:category'
 				element={
@@ -41,8 +25,8 @@ export function Router() {
 					</PrivateRoute>
 				}
 			/>
-			<Route path='/login' element={<Login />} />
-			<Route path='*' element={<NotFound />} />
+			<Route path='/login' element={<Component name='Login' />} />
+			<Route path='*' element={<Component name='NotFound' />} />
 		</Routes>
 	)
 }
