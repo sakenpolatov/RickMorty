@@ -46,7 +46,7 @@ export function Categories() {
 
 			fetchData()
 		})
-	}, [category, startTransition])
+	}, [category, startTransition, urlData])
 
 	const sortedData = useMemo(() => {
 		if (sortType.name === 'default') {
