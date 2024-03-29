@@ -1,9 +1,11 @@
-import styles from './details.module.css'
 import React, { useState, useEffect, useTransition } from 'react'
-import { useParams } from 'react-router-dom'
+import styles from './details.module.css'
+import axios from 'axios'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Loading } from '../../Loading/Loading'
 
 export function Details() {
+	const navigate = useNavigate()
 	const { category, id } = useParams()
 	const [details, setDetails] = useState(null)
 	const [isLoading, setIsLoading] = useState(true)
@@ -11,56 +13,27 @@ export function Details() {
 
 	useEffect(() => {
 		startTransition(() => {
-			const fetchData = async () => {
-				setIsLoading(true)
-
-				try {
-					const response = await fetch(
-						`https://65faa45d3909a9a65b1affc6.mockapi.io/rickandmorty/data`
-					)
-
-					if (!response.ok) {
-						throw new Error('Ошибка получения данных')
-					}
-
-					const jsonData = await response.json()
-
-					if (!Array.isArray(jsonData) || jsonData.length !== 3) {
-						throw new Error('Неверная структура данных')
-					}
-
-					let categoryData = null
-
-					if (category === 'characters') {
-						categoryData = jsonData[0]
-					} else if (category === 'locations') {
-						categoryData = jsonData[1]
-					} else if (category === 'episodes') {
-						categoryData = jsonData[2]
-					}
-
-					if (categoryData) {
-						const item = categoryData.find(item => item.id === parseInt(id))
-						if (item) {
-							setDetails(item)
-						} else {
-							throw new Error(
-								`Элемент с таким id ${id} не найден в категории ${category} в базе`
-							)
-						}
-					} else {
-						throw new Error(`Данные в категории ${category} не найдены в базе`)
-					}
-				} catch (error) {
-					console.error('Ошибка получения данных:', error)
-				} finally {
-					setIsLoading(false)
-				}
+			setIsLoading(true)
+			try {
+				axios
+					.get(`https://rickandmortyapi.com/api/${category}/${id}`)
+					.then(response => {
+						setDetails(response.data)
+						console.log(response.data)
+					})
+					.catch(error => {
+						console.error('Ошибка получения данных:', error)
+						navigate('/notfound')
+					})
+					.finally(() => {
+						setIsLoading(false)
+					})
+			} catch (error) {
+				console.error('Ошибка получения данных:', error)
+				setIsLoading(false)
 			}
-
-			fetchData()
 		})
-	}, [category, id, startTransition])
+	}, [category, id, navigate, startTransition])
 
 	return (
 		<div className={styles.details}>
@@ -71,7 +44,7 @@ export function Details() {
 					{details ? (
 						<>
 							<h2>{details.name}</h2>
-							{category === 'characters' && (
+							{category === 'character' && (
 								<div className={styles.characters}>
 									<div>
 										<img
@@ -82,11 +55,16 @@ export function Details() {
 									</div>
 									<div className={styles.info}>
 										<p>
-											Status: <u>{details.status}</u>
-										</p>
-										<p>
 											Species: <u>{details.species}</u>
 										</p>
+										<p>
+											Status: <u>{details.status}</u>
+										</p>
+										{details.type && (
+											<p>
+												Type: <u>{details.type}</u>
+											</p>
+										)}
 										<p>
 											Gender: <u>{details.gender}</u>
 										</p>
@@ -96,10 +74,10 @@ export function Details() {
 									</div>
 								</div>
 							)}
-							{category === 'episodes' && (
+							{category === 'episode' && (
 								<div className={styles.episodes}>
 									<p>
-										Air Date:<u> {details.air_date}</u>
+										Air Date: <u>{details.air_date}</u>
 									</p>
 									<p>
 										Season-Episode: <u>{details.episode}</u>
@@ -109,7 +87,7 @@ export function Details() {
 									</p>
 								</div>
 							)}
-							{category === 'locations' && (
+							{category === 'location' && (
 								<div className={styles.locations}>
 									<p>
 										Type: <u>{details.type}</u>
