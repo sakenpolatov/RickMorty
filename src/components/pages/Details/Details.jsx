@@ -19,7 +19,6 @@ export function Details() {
 					.get(`https://rickandmortyapi.com/api/${category}/${id}`)
 					.then(response => {
 						setDetails(response.data)
-						console.log(response.data)
 					})
 					.catch(error => {
 						console.error('Ошибка получения данных:', error)
