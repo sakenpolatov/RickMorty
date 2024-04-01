@@ -43,14 +43,21 @@ export function Categories() {
         <div className={styles.list}>
           <div>
             <ul className={styles.categories}>
-              {data.map((item, index) => (
-                <li key={item.id}>
-                  <Link to={`/categories/${category}/${item.id}`}>
-                    {item.name}
-                  </Link>
-                  {index === data.length - 1 ? <div ref={lastNodeRef} /> : null}
-                </li>
-              ))}
+              {data.map((item, index) =>
+                data.length === index + 1 ? (
+                  <li ref={lastNodeRef} key={item.id}>
+                    <Link to={`/categories/${category}/${item.id}`}>
+                      {item.name}
+                    </Link>
+                  </li>
+                ) : (
+                  <li key={item.id}>
+                    <Link to={`/categories/${category}/${item.id}`}>
+                      {item.name}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
           </div>
         </div>
