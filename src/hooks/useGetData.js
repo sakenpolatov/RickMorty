@@ -50,5 +50,9 @@ export function useGetData(pageNumber) {
     console.log("###pageNumber###;", getDataParams.pageNumber);
   }, [getDataParams]);
 
+  useEffect(() => {
+    setData([]);
+  }, [category]);
+
   return { isLoading, data, hasMore, isPending };
 }
