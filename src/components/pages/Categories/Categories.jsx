@@ -13,13 +13,13 @@ export function Categories() {
   const observer = useRef();
   const lastNodeRef = useCallback(
     (node) => {
-      if (isLoading || isPending) return;
+      if (isLoading) return;
       if (observer.current) {
         observer.current.disconnect();
       }
       observer.current = new IntersectionObserver((entries) => {
-        console.log("VISIBLE");
         if (entries[0].isIntersecting && hasMore) {
+          console.log("VISIBLE");
           setPageNumber((prevState) => prevState + 1);
         }
       });
@@ -28,7 +28,7 @@ export function Categories() {
       }
       console.log("###node###", node);
     },
-    [isLoading, isPending, hasMore]
+    [isLoading, hasMore]
   );
 
   if (!["character", "episode", "location"].includes(category)) {
@@ -44,14 +44,14 @@ export function Categories() {
           <div>
             <ul className={styles.categories}>
               {data.map((item, index) =>
-                data.length === index + 1 ? (
-                  <li ref={lastNodeRef} key={item.id}>
+                data.length - 20 === index + 1 ? (
+                  <li ref={lastNodeRef} key={`${category}-${item.id}`}>
                     <Link to={`/categories/${category}/${item.id}`}>
                       {item.name}
                     </Link>
                   </li>
                 ) : (
-                  <li key={item.id}>
+                  <li key={`${category}-${item.id}`}>
                     <Link to={`/categories/${category}/${item.id}`}>
                       {item.name}
                     </Link>
