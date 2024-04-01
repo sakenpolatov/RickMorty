@@ -18,8 +18,6 @@ export function useGetData(pageNumber) {
 	useEffect(() => {
 		startTransition(() => {
 			setIsLoading(true)
-
-			setData([])
 			axios({
 				method: 'GET',
 				url: `https://rickandmortyapi.com/api/${getDataParams.category}`,
@@ -38,7 +36,7 @@ export function useGetData(pageNumber) {
 					} else {
 						categoryData = res.data
 					}
-					setData(categoryData)
+					setData(prevData => [...prevData, ...categoryData])
 					setHasMore(categoryData.length > 0)
 					setIsLoading(false)
 				})

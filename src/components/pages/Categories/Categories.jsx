@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react'
+import React, { useState, useRef, useCallback, useEffect } from 'react'
 import styles from './categories.module.css'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { Loading } from '../../Loading/Loading'
@@ -31,6 +31,12 @@ export function Categories() {
 		[isLoading, isPending, hasMore]
 	)
 
+	useEffect(() => {
+		if (lastNodeRef.current) {
+			lastNodeRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' }) // Прокрутка к последнему элементу
+		}
+	}, [data])
+
 	if (!['character', 'episode', 'location'].includes(category)) {
 		navigate('/notfound')
 	}
@@ -44,13 +50,11 @@ export function Categories() {
 					<div>
 						<ul className={styles.categories}>
 							{data.map((item, index) => (
-								<li
-									key={item.id}
-									ref={index === data.length - 1 ? lastNodeRef : null}
-								>
+								<li key={item.id}>
 									<Link to={`/categories/${category}/${item.id}`}>
 										{item.name}
 									</Link>
+									{index === data.length - 1 ? <div ref={lastNodeRef} /> : null}
 								</li>
 							))}
 						</ul>

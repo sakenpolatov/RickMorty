@@ -3,14 +3,14 @@
 	flex-direction: column;
 	gap: 10px;
 	justify-content: center;
-	max-height: 100vh;
+	max-height: 100%;
 	max-width: 600px;
 	margin: 10px auto 0px;
 	padding: 20px;
 	align-items: center;
 	border-radius: 25px;
 	background-color: rgba(168, 168, 168, 0.842);
-	overflow-y: scroll; /*временно*/
+	overflow-y: auto;
 }
 .sort {
 	margin: 5px 0 5px 500px;
