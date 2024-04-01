@@ -37,31 +37,29 @@ export function Categories() {
 
   return (
     <div>
-      {isPending || isLoading ? (
-        <Loading />
-      ) : (
-        <div className={styles.list}>
-          <div>
-            <ul className={styles.categories}>
-              {data.map((item, index) =>
-                data.length - 15 === index + 1 ? (
-                  <li ref={lastNodeRef} key={`${category}-${item.id}`}>
-                    <Link to={`/categories/${category}/${item.id}`}>
-                      {item.name}
-                    </Link>
-                  </li>
-                ) : (
-                  <li key={`${category}-${item.id}`}>
-                    <Link to={`/categories/${category}/${item.id}`}>
-                      {item.name}
-                    </Link>
-                  </li>
-                )
-              )}
-            </ul>
-          </div>
-        </div>
-      )}
+      <div className={styles.list}>
+        {!data.length && (isPending || isLoading) ? (
+          <Loading />
+        ) : (
+          <ul className={styles.categories}>
+            {data.map((item, index) =>
+              data.length - 15 === index + 1 ? (
+                <li ref={lastNodeRef} key={`${category}-${item.id}`}>
+                  <Link to={`/categories/${category}/${item.id}`}>
+                    {item.name}
+                  </Link>
+                </li>
+              ) : (
+                <li key={`${category}-${item.id}`}>
+                  <Link to={`/categories/${category}/${item.id}`}>
+                    {item.name}
+                  </Link>
+                </li>
+              )
+            )}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }
