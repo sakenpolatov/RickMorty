@@ -44,7 +44,7 @@ export function Categories() {
           <div>
             <ul className={styles.categories}>
               {data.map((item, index) =>
-                data.length - 20 === index + 1 ? (
+                data.length - 15 === index + 1 ? (
                   <li ref={lastNodeRef} key={`${category}-${item.id}`}>
                     <Link to={`/categories/${category}/${item.id}`}>
                       {item.name}
