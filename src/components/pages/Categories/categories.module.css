@@ -1,23 +1,29 @@
 .list {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
 	justify-content: center;
 	height: 800px;
-	max-width: 600px;
+	max-width: 1000px;
 	margin: 10px auto 0px;
 	padding: 20px;
 	align-items: center;
 	border-radius: 25px;
 	background-color: rgba(168, 168, 168, 0.842);
-	overflow-y: scroll
+	overflow-y: scroll;
 }
-.categories{
-max-height: 100%;
+.categories {
+	max-height: 100%;
+	margin-bottom: 20px;
+	padding: 50px;
 }
 
 .sort {
-	margin: 5px 0 5px 500px;
+	position: fixed;
+	left: 1450px;
+	top: 230px;
+	z-index: 2;
 }
 .categories a {
 	font-size: 36px;
@@ -32,6 +38,9 @@ max-height: 100%;
 .categories a:hover {
 	color: rgb(0, 110, 255);
 	text-decoration: underline;
+}
+.categories a:visited {
+	color: rgb(0, 64, 116);
 }
 
 .categories > li {
