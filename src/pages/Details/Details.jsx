@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useTransition } from 'react'
+import { useState, useEffect, useTransition } from 'react'
 import styles from './details.module.css'
 import axios from 'axios'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Loading } from '../../Loading/Loading'
+import { Loading } from '../../components/Loading/Loading'
 import { DetailsInfo } from './DetailsInfo'
 
 const ErrorMessage = 'Ошибка получения данных:'

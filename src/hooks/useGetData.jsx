@@ -12,10 +12,10 @@ export function useGetData(pageNumber) {
 	const [isPending, startTransition] = useTransition()
 	const { category } = useParams()
 
-	const getDataParams = useMemo(() => ({ category, pageNumber }), [
-		category,
-		pageNumber
-	])
+	const getDataParams = useMemo(
+		() => ({ category, pageNumber }),
+		[category, pageNumber]
+	)
 
 	useEffect(() => {
 		startTransition(() => {

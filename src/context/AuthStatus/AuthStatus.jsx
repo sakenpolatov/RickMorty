@@ -1,4 +1,3 @@
-import React from 'react'
 import { useAuth } from '../AuthProvider/AuthProvider'
 import { useNavigate } from 'react-router-dom'
 import styles from './AuthStatus.module.css'

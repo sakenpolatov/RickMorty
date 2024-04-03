@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styles from './sort.module.css'
 
 export function Sort({ sortType, onChangeSort, sortList }) {

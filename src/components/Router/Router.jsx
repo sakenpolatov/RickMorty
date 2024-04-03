@@ -1,8 +1,7 @@
-import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { PrivateRoute } from '../PrivateRoute/PrivateRoute'
-import { CategoriesWrapper } from '../pages/Categories/CategoriesWrapper'
-import { DetailsWrapper } from '../pages/Details/DetailsWrapper'
+import { CategoriesWrapper } from '../../pages/Categories/CategoriesWrapper'
+import { DetailsWrapper } from '../../pages/Details/DetailsWrapper'
 import { Component } from '../../utils/Component'
 
 export function Router() {

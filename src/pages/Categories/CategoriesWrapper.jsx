@@ -1,5 +1,5 @@
-import React, { lazy, Suspense } from 'react'
-import { Loading } from '../../Loading/Loading'
+import { lazy, Suspense } from 'react'
+import { Loading } from '../../components/Loading/Loading'
 
 const Categories = lazy(() =>
 	import('./Categories').then(module => ({

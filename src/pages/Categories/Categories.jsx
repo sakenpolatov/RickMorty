@@ -1,9 +1,9 @@
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import styles from './categories.module.css'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { Loading } from '../../Loading/Loading'
-import { useGetData } from '../../../hooks/useGetData.jsx'
-import { Sort } from '../../Sort/Sort'
+import { Loading } from '../../components/Loading/Loading.jsx'
+import { useGetData } from '../../hooks/useGetData.jsx'
+import { Sort } from '../../components/Sort/Sort.jsx'
 
 const Default = 'default'
 const AZsort = 'a-z'
