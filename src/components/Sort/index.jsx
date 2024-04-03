@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import styles from './sort.module.css'
+import styles from './index.module.css'
 
 export function Sort({ sortType, onChangeSort, sortList }) {
 	const [open, setOpen] = useState(false)

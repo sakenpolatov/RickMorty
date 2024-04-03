@@ -1,6 +1,6 @@
-import { useAuth } from '../AuthProvider/AuthProvider'
+import { useAuth } from '../AuthProvider/index'
 import { useNavigate } from 'react-router-dom'
-import styles from './AuthStatus.module.css'
+import styles from './index.module.css'
 
 export function AuthStatus() {
 	const auth = useAuth()

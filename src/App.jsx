@@ -1,9 +1,9 @@
 import { Suspense } from 'react'
-import { Header } from './components/Header/Header.jsx'
-import { Router } from './components/Router/Router.jsx'
+import { Header } from './components/Header'
+import { Router } from './components/Router'
 import styles from './app.module.css'
-import { AuthProvider } from './context/AuthProvider/AuthProvider.jsx'
-import { Loading } from './components/Loading/Loading.jsx'
+import { AuthProvider } from './context/AuthProvider'
+import { Loading } from './components/Loading/index.jsx'
 import ErrorBoundary from './utils/ErrorBoundary'
 function App() {
 	return (

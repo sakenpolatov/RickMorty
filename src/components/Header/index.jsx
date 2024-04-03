@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import icon from '../../../public/rick.svg'
-import styles from './header.module.css'
-import { AuthStatus } from '../../context/AuthStatus/AuthStatus'
+import icon from '../../assets/rick.svg'
+import styles from './index.module.css'
+import { AuthStatus } from '../../context/AuthStatus'
 
 export function Header() {
 	return (

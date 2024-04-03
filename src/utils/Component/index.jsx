@@ -1,11 +1,13 @@
 import { Suspense, lazy } from 'react'
-import { Loading } from '../../components/Loading/Loading'
+import { Loading } from '../../components/Loading'
 
 const ComponentName = name => {
-	return /*#__PURE__*/ lazy(() =>
-		/* @vite-ignore */ import(`./../../pages/${name}/${name}`).then(module => ({
-			default: module[name]
-		}))
+	return /*#__PURE__*/ lazy(
+		/* @vite-ignore */
+		() =>
+			import(`./../../pages/${name}/${name}`).then(module => ({
+				default: module[name]
+			}))
 	)
 }
 
