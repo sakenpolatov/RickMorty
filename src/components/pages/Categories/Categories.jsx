@@ -1,18 +1,21 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react'
+import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import styles from './categories.module.css'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { Loading } from '../../Loading/Loading'
 import { useGetData } from '../../../hooks/useGetData'
 import { Sort } from '../../Sort/Sort'
 
-const initialSortType = 'default'
+const Default = 'default'
+const AZsort = 'a-z'
+const ZAsort = 'z-a'
+const sortList = [Default, AZsort, ZAsort]
 
 export function Categories() {
 	const navigate = useNavigate()
 	const { category } = useParams()
 	const [pageNumber, setPageNumber] = useState(1)
 	const { isLoading, data, hasMore, isPending } = useGetData(pageNumber)
-	const [sortType, setSortType] = useState(initialSortType)
+	const [sortType, setSortType] = useState(Default)
 
 	const observer = useRef()
 	const lastNodeRef = useCallback(
@@ -23,14 +26,12 @@ export function Categories() {
 			}
 			observer.current = new IntersectionObserver(entries => {
 				if (entries[0].isIntersecting && hasMore) {
-					console.log('VISIBLE')
 					setPageNumber(prevState => prevState + 1)
 				}
 			})
 			if (node) {
 				observer.current.observe(node)
 			}
-			console.log('###node###', node)
 		},
 		[isLoading, hasMore]
 	)
@@ -39,18 +40,39 @@ export function Categories() {
 		navigate('/notfound')
 	}
 
+	const sortedData = useMemo(() => {
+		if (sortType.name === Default) {
+			return data
+		}
+		let sorted = [...data]
+		if (sortType === AZsort) {
+			sorted.sort((a, b) => a.name.localeCompare(b.name))
+		} else if (sortType === ZAsort) {
+			sorted.sort((a, b) => b.name.localeCompare(a.name))
+		}
+		return sorted
+	}, [data, sortType])
+
+	useEffect(() => {
+		setPageNumber(1)
+	}, [category])
+
 	return (
 		<div>
 			<div className={styles.list}>
 				<div className={styles.sort}>
-					<Sort sortType={sortType} onChangeSort={setSortType} />
+					<Sort
+						sortType={sortType}
+						onChangeSort={setSortType}
+						sortList={sortList}
+					/>
 				</div>
-				{!data.length && (isPending || isLoading) ? (
+				{!sortedData.length && (isPending || isLoading) ? (
 					<Loading />
 				) : (
 					<ul className={styles.categories}>
-						{data.map((item, index) =>
-							data.length - 15 === index + 1 ? (
+						{sortedData.map((item, index) =>
+							sortedData.length - 16 === index + 1 ? (
 								<li ref={lastNodeRef} key={item.id}>
 									<Link to={`/categories/${category}/${item.id}`}>
 										{item.name}
