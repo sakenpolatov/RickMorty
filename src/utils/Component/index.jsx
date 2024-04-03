@@ -1,9 +1,9 @@
 import { Suspense, lazy } from 'react'
-import { Loading } from '../components/Loading/Loading'
+import { Loading } from '../../components/Loading/Loading'
 
 const ComponentName = name => {
-	return lazy(() =>
-		import(`./../pages/${name}/${name}`).then(module => ({
+	return /*#__PURE__*/ lazy(() =>
+		/* @vite-ignore */ import(`./../../pages/${name}/${name}`).then(module => ({
 			default: module[name]
 		}))
 	)
