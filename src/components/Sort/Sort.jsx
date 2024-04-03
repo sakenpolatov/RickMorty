@@ -1,12 +1,7 @@
 import React, { useState } from 'react'
 import styles from './sort.module.css'
 
-const Default = 'default'
-const AZsort = 'a-z'
-const ZAsort = 'z-a'
-const list = [Default, AZsort, ZAsort]
-
-export function Sort({ sortType, onChangeSort }) {
+export function Sort({ sortType, onChangeSort, sortList }) {
 	const [open, setOpen] = useState(false)
 
 	const onClickListItem = name => {
@@ -23,7 +18,7 @@ export function Sort({ sortType, onChangeSort }) {
 			{open && (
 				<div className={styles.sort__popup}>
 					<ul>
-						{list.map((item, index) => (
+						{sortList.map((item, index) => (
 							<li
 								key={index}
 								onClick={() => onClickListItem(item)}
