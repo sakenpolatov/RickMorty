@@ -3,7 +3,7 @@ import styles from './login.module.css'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../../context/AuthProvider'
 
-const ErrorMessage = `Имя пользователя должно содержать только латинские буквы, одну заглавную .Не менее 3 символов. Запретные символы (!@#$%^&*_-=)`
+const ErrorMessage = `Имя пользователя должно содержать только латинские буквы, одну заглавную .Не менее 4 символов. Запретные символы (!@#$%^&*_-=)`
 
 export function Login() {
 	const navigate = useNavigate()
@@ -43,7 +43,7 @@ export function Login() {
 
 	const validateInput = value => {
 		return (
-			value.trim().length >= 3 &&
+			value.trim().length >= 4 &&
 			/^[a-zA-Z]+$/.test(value) &&
 			/[A-Z]/.test(value)
 		)
@@ -53,7 +53,7 @@ export function Login() {
 		<div className={styles.loginContainer}>
 			<form className={styles.loginForm} onSubmit={handleSubmit}>
 				<label className={styles.loginLabel}>
-					Username:{' '}
+					Username:{'     '}
 					<input
 						className={styles.loginInput}
 						type='text'
@@ -64,7 +64,7 @@ export function Login() {
 				</label>
 
 				<button className={styles.loginButton} type='submit' disabled={error}>
-					Log In
+					Sign In
 				</button>
 				{error && <p className={styles.error}>{error}</p>}
 			</form>
