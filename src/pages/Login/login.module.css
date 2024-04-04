@@ -1,11 +1,13 @@
 .loginContainer {
 	margin: 20px auto;
-	width: 400px;
-	height: 150px;
+	width: 600px;
+	height: 300px;
 	border: 1px solid rgba(255, 255, 255, 0.425);
 	font-family: 'Poppins';
 	border-radius: 20px;
-	background-color: #cccccc7e;
+	background-color: #474747;
+	font-size: 24px;
+	font-family: 'Jura';
 }
 
 .loginForm {
@@ -26,17 +28,24 @@
 }
 
 .loginButton {
-	margin: 0 auto;
-	font-size: 14px;
-	width: 25%;
+	margin: 20px auto;
+	font-size: 24px;
+	width: 120px;
+	height: 50px;
 	padding: 10px;
 	background-color: #007bff;
 	color: #fff;
 	border: none;
 	border-radius: 10px;
 	cursor: pointer;
+	font-weight: 800;
 }
 
 .loginButton:hover {
 	background-color: #0056b3;
+}
+
+.loginButton:disabled {
+	background-color: #ccc;
+	cursor: not-allowed;
 }
