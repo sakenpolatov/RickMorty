@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import styles from './notfound.module.css'
+import styles from './index.module.css'
 
 export function NotFound() {
 	const navigate = useNavigate()
