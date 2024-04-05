@@ -1,26 +1,35 @@
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import styles from './categories.module.css'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { Loading } from '../../components/Loading'
+import { Loading } from '../../components/Loading/index'
 import { useGetData } from '../../hooks/useGetData.jsx'
-import { Sort } from '../../components/Sort'
+import { Sort } from '../../components/Sort/index'
 
-const Default = 'default'
-const AZsort = 'a-z'
-const ZAsort = 'z-a'
-const sortList = [Default, AZsort, ZAsort]
-const INITIAL_PAGE = 1
+export interface ItemInterface {
+	name: string
+	id: number
+}
+
+export enum SortType {
+	Default = 'default',
+	A_Z = 'a-z',
+	Z_A = 'z-a'
+}
+
+const sortList: SortType[] = [SortType.Default, SortType.A_Z, SortType.Z_A]
+
+const INITIAL_PAGE: number = 1
 
 export function Categories() {
 	const navigate = useNavigate()
-	const { category } = useParams()
-	const [pageNumber, setPageNumber] = useState(INITIAL_PAGE)
+	const { category = '' } = useParams()
+	const [pageNumber, setPageNumber] = useState<number>(INITIAL_PAGE)
 	const { isLoading, data, hasMore, isPending } = useGetData(pageNumber)
-	const [sortType, setSortType] = useState(Default)
+	const [sortType, setSortType] = useState<SortType>(SortType.Default)
 
-	const observer = useRef()
+	const observer = useRef<IntersectionObserver | null>(null)
 	const lastNodeRef = useCallback(
-		node => {
+		(node: HTMLElement | null) => {
 			if (isLoading) return
 			if (observer.current) {
 				observer.current.disconnect()
@@ -37,18 +46,20 @@ export function Categories() {
 		[isLoading, hasMore]
 	)
 
-	if (!['character', 'episode', 'location'].includes(category)) {
-		navigate('/notfound')
-	}
+	useEffect(() => {
+		if (!['character', 'episode', 'location'].includes(category)) {
+			navigate('/notfound')
+		}
+	}, [category, navigate])
 
 	const sortedData = useMemo(() => {
-		if (sortType.name === Default) {
+		if (sortType === SortType.Default) {
 			return data
 		}
 		let sorted = [...data]
-		if (sortType === AZsort) {
+		if (sortType === SortType.A_Z) {
 			sorted.sort((a, b) => a.name.localeCompare(b.name))
-		} else if (sortType === ZAsort) {
+		} else if (sortType === SortType.Z_A) {
 			sorted.sort((a, b) => b.name.localeCompare(a.name))
 		}
 		return sorted
@@ -60,7 +71,7 @@ export function Categories() {
 
 	const sortedDataList = (
 		<ul className={styles.categories}>
-			{sortedData.map((item, index) =>
+			{sortedData.map((item: ItemInterface, index: number) =>
 				sortedData.length - 16 === index + 1 ? (
 					<li ref={lastNodeRef} key={item.id}>
 						<Link to={`/categories/${category}/${item.id}`}>{item.name}</Link>
