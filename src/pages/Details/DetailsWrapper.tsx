@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { Loading } from '../../components/Loading'
+import { Loading } from '../../components/Loading/index'
 
 const Details = lazy(() =>
 	import('./Details').then(module => ({
