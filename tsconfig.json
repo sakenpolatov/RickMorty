@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		"target": "ES2019",
+		"module": "ESNext",
+		"lib": ["ES2019", "DOM", "DOM.Iterable", "WebWorker"],
+		"useDefineForClassFields": true,
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"moduleResolution": "node",
+		"allowJs": true,
+		"checkJs": true,
+		"jsx": "react-jsx",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": true
+	},
+	"include": ["./**/*.ts", "./**/*.tsx", "./**/*.jsx"]
+}
