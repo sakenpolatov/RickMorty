@@ -2,14 +2,16 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from './index.module.css'
 
-export function NotFound() {
+export const NotFound: React.FC = () => {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		setTimeout(() => {
+		const timer = setTimeout(() => {
 			navigate('/')
 		}, 1500)
-	}, [])
+
+		return () => clearTimeout(timer)
+	}, [navigate])
 
 	return (
 		<div className={styles.container}>
