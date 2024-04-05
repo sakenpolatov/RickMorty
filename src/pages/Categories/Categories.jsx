@@ -9,11 +9,12 @@ const Default = 'default'
 const AZsort = 'a-z'
 const ZAsort = 'z-a'
 const sortList = [Default, AZsort, ZAsort]
+const INITIAL_PAGE = 1
 
 export function Categories() {
 	const navigate = useNavigate()
 	const { category } = useParams()
-	const [pageNumber, setPageNumber] = useState(1)
+	const [pageNumber, setPageNumber] = useState(INITIAL_PAGE)
 	const { isLoading, data, hasMore, isPending } = useGetData(pageNumber)
 	const [sortType, setSortType] = useState(Default)
 
@@ -57,6 +58,22 @@ export function Categories() {
 		setPageNumber(1)
 	}, [category])
 
+	const sortedDataList = (
+		<ul className={styles.categories}>
+			{sortedData.map((item, index) =>
+				sortedData.length - 16 === index + 1 ? (
+					<li ref={lastNodeRef} key={item.id}>
+						<Link to={`/categories/${category}/${item.id}`}>{item.name}</Link>
+					</li>
+				) : (
+					<li key={item.id}>
+						<Link to={`/categories/${category}/${item.id}`}>{item.name}</Link>
+					</li>
+				)
+			)}
+		</ul>
+	)
+
 	return (
 		<div className={styles.content}>
 			<div className={styles.list}>
@@ -70,23 +87,7 @@ export function Categories() {
 				{!sortedData.length && (isPending || isLoading) ? (
 					<Loading />
 				) : (
-					<ul className={styles.categories}>
-						{sortedData.map((item, index) =>
-							sortedData.length - 16 === index + 1 ? (
-								<li ref={lastNodeRef} key={item.id}>
-									<Link to={`/categories/${category}/${item.id}`}>
-										{item.name}
-									</Link>
-								</li>
-							) : (
-								<li key={item.id}>
-									<Link to={`/categories/${category}/${item.id}`}>
-										{item.name}
-									</Link>
-								</li>
-							)
-						)}
-					</ul>
+					sortedDataList
 				)}
 			</div>
 		</div>

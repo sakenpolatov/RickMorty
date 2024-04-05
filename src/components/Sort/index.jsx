@@ -9,6 +9,16 @@ export function Sort({ sortType, onChangeSort, sortList }) {
 		setOpen(false)
 	}
 
+	const listItems = sortList.map((item, index) => (
+		<li
+			key={index}
+			onClick={() => onClickListItem(item)}
+			className={sortType === item ? styles.active : ''}
+		>
+			{item}
+		</li>
+	))
+
 	return (
 		<div className={styles.sort}>
 			<div className={styles.sort__label}>
@@ -17,17 +27,7 @@ export function Sort({ sortType, onChangeSort, sortList }) {
 			</div>
 			{open && (
 				<div className={styles.sort__popup}>
-					<ul>
-						{sortList.map((item, index) => (
-							<li
-								key={index}
-								onClick={() => onClickListItem(item)}
-								className={sortType === item ? styles.active : ''}
-							>
-								{item}
-							</li>
-						))}
-					</ul>
+					<ul>{listItems}</ul>
 				</div>
 			)}
 		</div>

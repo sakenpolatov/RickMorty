@@ -3,6 +3,12 @@ import icon from '../../assets/rick.svg'
 import styles from './index.module.css'
 import { AuthStatus } from '../../context/AuthStatus'
 
+const PATH_LIST = {
+	characters: '/categories/character',
+	locations: '/categories/location',
+	episodes: '/categories/episode'
+}
+
 export function Header() {
 	return (
 		<header>
@@ -14,13 +20,13 @@ export function Header() {
 			<div className={styles.nav}>
 				<ul>
 					<li>
-						<Link to='/categories/character'>Characters</Link>
+						<Link to={PATH_LIST.characters}>Characters</Link>
 					</li>
 					<li>
-						<Link to='/categories/location'>Locations</Link>
+						<Link to={PATH_LIST.locations}>Locations</Link>
 					</li>
 					<li>
-						<Link to='/categories/episode'>Episodes</Link>
+						<Link to={PATH_LIST.episodes}>Episodes</Link>
 					</li>
 				</ul>
 			</div>

@@ -18,23 +18,18 @@ export function Details() {
 	useEffect(() => {
 		startTransition(() => {
 			setIsLoading(true)
-			try {
-				axios
-					.get(`${BASE_API}/${category}/${id}`)
-					.then(response => {
-						setDetails(response.data)
-					})
-					.catch(error => {
-						console.error(ErrorMessage, error)
-						navigate('/notfound')
-					})
-					.finally(() => {
-						setIsLoading(false)
-					})
-			} catch (error) {
-				console.error(ErrorMessage, error)
-				setIsLoading(false)
-			}
+			axios
+				.get(`${BASE_API}/${category}/${id}`)
+				.then(response => {
+					setDetails(response.data)
+				})
+				.catch(error => {
+					console.error(ErrorMessage, error)
+					navigate('/notfound')
+				})
+				.finally(() => {
+					setIsLoading(false)
+				})
 		})
 	}, [category, id, navigate, startTransition])
 
