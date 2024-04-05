@@ -1,11 +1,18 @@
 import { useState } from 'react'
 import styles from './index.module.css'
+import { SortType } from '../../pages/Categories/Categories'
 
-export function Sort({ sortType, onChangeSort, sortList }) {
-	const [open, setOpen] = useState(false)
+interface SortProps {
+	sortType: string
+	onChangeSort: React.Dispatch<React.SetStateAction<SortType>>
+	sortList: string[]
+}
 
-	const onClickListItem = name => {
-		onChangeSort(name)
+export function Sort({ sortType, onChangeSort, sortList }: SortProps) {
+	const [open, setOpen] = useState<boolean>(false)
+
+	const onClickListItem = (name: string) => {
+		onChangeSort(name as SortType)
 		setOpen(false)
 	}
 
