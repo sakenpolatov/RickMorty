@@ -1,0 +1,40 @@
+.message {
+	font-size: 16px;
+	margin-bottom: 20px;
+	font-family: 'Poppins';
+}
+.noLogged {
+	margin-top: 10px;
+	color: #fff;
+	font-weight: 800;
+	font-size: 24px;
+	font-family: 'Poppins';
+}
+
+.button {
+	padding: 8px 12px;
+	margin-bottom: 20px;
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.button:hover {
+	background-color: #0056b3;
+}
+
+.username {
+	font-weight: 700;
+	color: aqua;
+	padding: 15px;
+}
+
+.username:hover {
+	text-decoration: underline;
+	font-size: 16.5px;
+	color: rgb(0, 140, 255);
+	font-weight: 700;
+	padding: 15px;
+}

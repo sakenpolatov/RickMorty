@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 import styles from './sort.module.css'
 
-export function Sort({ sortType, onChangeSort }) {
+export function Sort({ sortType, onChangeSort, sortList }) {
 	const [open, setOpen] = useState(false)
-	const list = [{ name: 'default' }, { name: 'a-z' }, { name: 'z-a' }]
 
 	const onClickListItem = name => {
-		const newSortType = list.find(item => item.name === name)
-		onChangeSort(newSortType)
+		onChangeSort(name)
 		setOpen(false)
 	}
 
@@ -15,18 +13,18 @@ export function Sort({ sortType, onChangeSort }) {
 		<div className={styles.sort}>
 			<div className={styles.sort__label}>
 				<b>Sort by:</b>
-				<span onClick={() => setOpen(!open)}>{sortType.name}</span>
+				<span onClick={() => setOpen(!open)}>{sortType}</span>
 			</div>
 			{open && (
 				<div className={styles.sort__popup}>
 					<ul>
-						{list.map(item => (
+						{sortList.map((item, index) => (
 							<li
-								key={item.name}
-								onClick={() => onClickListItem(item.name)}
-								className={sortType.name === item.name ? styles.active : ''}
+								key={index}
+								onClick={() => onClickListItem(item)}
+								className={sortType === item ? styles.active : ''}
 							>
-								{item.name}
+								{item}
 							</li>
 						))}
 					</ul>
