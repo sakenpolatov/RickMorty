@@ -1,6 +1,6 @@
 import styles from './index.module.css'
 
-export function Home() {
+export const Home: React.FC = () => {
 	return (
 		<div className={styles.home}>
 			<p>
