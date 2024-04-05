@@ -1,13 +1,26 @@
 import { useEffect, useState, useTransition, useMemo } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import { ItemInterface } from '../pages/Categories/Categories'
 
 const BASE_API = `https://rickandmortyapi.com/api`
 
-export function useGetData(pageNumber) {
-	const [isLoading, setIsLoading] = useState(false)
-	const [data, setData] = useState([])
-	const [hasMore, setHasMore] = useState(false)
+interface UseGetDataReturn {
+	isLoading: boolean
+	data: ItemInterface[]
+	hasMore: boolean
+	isPending: boolean
+}
+
+enum Category {
+	Character = 'character',
+	Location = 'location',
+	Episode = 'episode'
+}
+export function useGetData(pageNumber: number): UseGetDataReturn {
+	const [isLoading, setIsLoading] = useState<boolean>(false)
+	const [data, setData] = useState<ItemInterface[]>([])
+	const [hasMore, setHasMore] = useState<boolean>(false)
 
 	const [isPending, startTransition] = useTransition()
 	const { category } = useParams()
@@ -30,9 +43,9 @@ export function useGetData(pageNumber) {
 				.then(res => {
 					let categoryData = []
 					if (
-						getDataParams.category === 'character' ||
-						getDataParams.category === 'location' ||
-						getDataParams.category === 'episode'
+						getDataParams.category === Category.Character ||
+						getDataParams.category === Category.Location ||
+						getDataParams.category === Category.Episode
 					) {
 						categoryData = res.data.results
 					} else {
