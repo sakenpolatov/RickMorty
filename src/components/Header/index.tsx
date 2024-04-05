@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
 import icon from '../../assets/rick.svg'
 import styles from './index.module.css'
-import { AuthStatus } from '../../context/AuthStatus'
+import { AuthStatus } from '../../context/AuthStatus/index'
 
-const PATH_LIST = {
-	characters: '/categories/character',
-	locations: '/categories/location',
-	episodes: '/categories/episode'
+enum PATH_LIST {
+	characters = '/categories/character',
+	locations = '/categories/location',
+	episodes = '/categories/episode'
 }
 
 export function Header() {
