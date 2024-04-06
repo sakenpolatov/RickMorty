@@ -1,31 +1,34 @@
 import { Routes, Route } from 'react-router-dom'
 import { PrivateRoute } from '../components/PrivateRoute/index'
-import { CategoriesWrapper } from '../pages/Categories/CategoriesWrapper'
-import { DetailsWrapper } from '../pages/Details/DetailsWrapper'
-import { Component } from '../utils/Component'
+import Categories from '../pages/Categories/Categories.lazy'
+import Details from '../pages/Details/Details.lazy'
+import Home from '../pages/Home/Home.lazy'
+import Login from '../pages/Login/Login.lazy'
+import NotFound from '../pages/NotFound/NotFound.lazy'
+import { RoutePaths } from './RoutePaths'
 
 export function Router() {
 	return (
 		<Routes>
-			<Route path='/' element={<Component name='Home' />} />
+			<Route path={RoutePaths.Home} element={<Home />} />
 			<Route
-				path='/categories/:category'
+				path={RoutePaths.Categories}
 				element={
 					<PrivateRoute>
-						<CategoriesWrapper />
+						<Categories />
 					</PrivateRoute>
 				}
 			/>
 			<Route
-				path='/categories/:category/:id'
+				path={RoutePaths.Details}
 				element={
 					<PrivateRoute>
-						<DetailsWrapper />
+						<Details />
 					</PrivateRoute>
 				}
 			/>
-			<Route path='/login' element={<Component name='Login' />} />
-			<Route path='*' element={<Component name='NotFound' />} />
+			<Route path={RoutePaths.Login} element={<Login />} />
+			<Route path={RoutePaths.NotFound} element={<NotFound />} />
 		</Routes>
 	)
 }
