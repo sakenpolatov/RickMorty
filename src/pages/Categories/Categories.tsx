@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import styles from './categories.module.css'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { Loading } from '../../components/Loading/index'
-import { useGetData } from '../../hooks/useGetData.jsx'
+import { useGetData } from '../../hooks/useGetData.js'
 import { Sort } from '../../components/Sort/index'
 
 export interface ItemInterface {
