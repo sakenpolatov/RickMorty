@@ -2,8 +2,8 @@ import { useEffect, useState, useTransition, useMemo } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { ItemInterface } from '../pages/Categories/Categories'
-
-const BASE_API = `https://rickandmortyapi.com/api`
+import { ErrorMessage } from '../constants/errorMessages'
+import { BASE_API } from '../constants/BASE_API'
 
 interface UseGetDataReturn {
 	isLoading: boolean
@@ -58,7 +58,7 @@ export function useGetData(pageNumber: number): UseGetDataReturn {
 					setIsLoading(false)
 				})
 				.catch(error => {
-					console.error('Error:', error.message)
+					console.error(ErrorMessage.errorDidCatch, error.message)
 				})
 		})
 	}, [getDataParams])

@@ -4,9 +4,8 @@ import axios from 'axios'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Loading } from '../../components/Loading/index'
 import { DetailsInfo } from './DetailsInfo'
-
-const ErrorMessage: string = 'Ошибка получения данных:'
-const BASE_API: string = `https://rickandmortyapi.com/api`
+import { ErrorMessage } from '../../constants/errorMessages'
+import { BASE_API } from '../../constants/BASE_API'
 
 export interface CharacterDetails {
 	name: string
@@ -56,7 +55,7 @@ export function Details() {
 						setDetails(response.data)
 					})
 					.catch(error => {
-						console.error(ErrorMessage, error)
+						console.error(ErrorMessage.errorDidCatch, error)
 						navigate('/notfound')
 					})
 					.finally(() => {
