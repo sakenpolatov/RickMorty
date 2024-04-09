@@ -2,8 +2,8 @@ import { ChangeEvent, useState, FormEvent } from 'react'
 import styles from './index.module.css'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../../context/AuthProvider/index'
-
-const ErrorMessage: string = `Имя пользователя должно содержать только латинские буквы, одну заглавную .Не менее 4 символов. Запретные символы (!@#$%^&*_-=)`
+import { validateInput } from './../../utils/validate'
+import { ErrorMessage } from '../../constants/errorMessages'
 
 export const Login: React.FC = () => {
 	const navigate = useNavigate()
@@ -19,7 +19,7 @@ export const Login: React.FC = () => {
 		event.preventDefault()
 
 		if (!validateInput(username)) {
-			setError(ErrorMessage)
+			setError(ErrorMessage.validateMessage)
 			return
 		}
 
@@ -35,18 +35,10 @@ export const Login: React.FC = () => {
 		if (value.trim() === '') {
 			setError('')
 		} else if (!validateInput(value)) {
-			setError(ErrorMessage)
+			setError(ErrorMessage.validateMessage)
 		} else {
 			setError('')
 		}
-	}
-
-	const validateInput = (value: string): boolean => {
-		return (
-			value.trim().length >= 4 &&
-			/^[a-zA-Z]+$/.test(value) &&
-			/[A-Z]/.test(value)
-		)
 	}
 
 	return (
