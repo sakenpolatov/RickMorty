@@ -1,41 +1,41 @@
-import styles from './details.module.css'
-import { CharacterInfo } from './CharacterInfo'
-import { LocationInfo } from './LocationInfo'
-import { EpisodeInfo } from './EpisodeInfo'
+import styles from './details.module.css';
+import { CharacterInfo } from './CharacterInfo';
+import { LocationInfo } from './LocationInfo';
+import { EpisodeInfo } from './EpisodeInfo';
 import {
-	CharacterDetails,
-	EpisodeDetails,
-	LocationDetails,
-	Category
-} from './Details'
+  ICharacterDetails,
+  IEpisodeDetails,
+  ILocationDetails,
+  ECategory,
+} from '../../types/types';
 
 interface DetailsInfoProps {
-	details: CharacterDetails | EpisodeDetails | LocationDetails | null
-	category: Category
-	id: string
+  details: ICharacterDetails | IEpisodeDetails | ILocationDetails | null;
+  category: ECategory;
+  id: string;
 }
 
 export function DetailsInfo({ details, category }: DetailsInfoProps) {
-	return (
-		<div className={styles.content}>
-			{details ? (
-				<>
-					<h2>{details.name}</h2>
-					{category === Category.Character && (
-						<CharacterInfo details={details as CharacterDetails} />
-					)}
-					{category === Category.Episode && (
-						<LocationInfo details={details as LocationDetails} />
-					)}
-					{category === Category.Location && (
-						<EpisodeInfo details={details as EpisodeDetails} />
-					)}
-				</>
-			) : (
-				<div className={styles.episodes}>
-					<p>Item not found.</p>
-				</div>
-			)}
-		</div>
-	)
+  return (
+    <div className={styles.content}>
+      {details ? (
+        <>
+          <h2>{details.name}</h2>
+          {category === ECategory.Character && (
+            <CharacterInfo details={details as ICharacterDetails} />
+          )}
+          {category === ECategory.Episode && (
+            <LocationInfo details={details as ILocationDetails} />
+          )}
+          {category === ECategory.Location && (
+            <EpisodeInfo details={details as IEpisodeDetails} />
+          )}
+        </>
+      ) : (
+        <div className={styles.episodes}>
+          <p>Item not found.</p>
+        </div>
+      )}
+    </div>
+  );
 }
