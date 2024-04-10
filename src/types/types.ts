@@ -57,3 +57,10 @@ export interface UseGetDataReturn {
   hasMore: boolean;
   isPending: boolean;
 }
+
+//AuthProvider
+export interface AuthContextType {
+  user: string | null;
+  signIn: (newUser: string, callback: () => void) => void;
+  signOut: (callback: () => void) => void;
+}
