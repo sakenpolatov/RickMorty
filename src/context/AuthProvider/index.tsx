@@ -1,11 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import { ErrorMessage } from '../../constants/errorMessages';
-
-interface AuthContextType {
-  user: string | null;
-  signIn: (newUser: string, callback: () => void) => void;
-  signOut: (callback: () => void) => void;
-}
+import { AuthContextType } from '../../types/types';
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
