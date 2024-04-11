@@ -1,11 +1,11 @@
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import styles from './categories.module.css';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { Loading } from '../../components/Loading/index';
 import { useGetData } from '../../hooks/useGetData.js';
 import { Sort } from '../../components/Sort/index';
 import { ItemInterface } from '../../types/types';
 import { SortType } from '../../types/types';
+import { Loader } from '@mantine/core';
 
 const sortList: SortType[] = [SortType.Default, SortType.A_Z, SortType.Z_A];
 
@@ -87,7 +87,7 @@ export function Categories() {
           />
         </div>
         {!sortedData.length && (isPending || isLoading) ? (
-          <Loading />
+          <Loader color="teal" />
         ) : (
           sortedDataList
         )}
