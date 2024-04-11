@@ -2,11 +2,11 @@ import { useState, useEffect, useTransition } from 'react';
 import styles from './details.module.css';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Loading } from '../../components/Loading/index';
 import { DetailsInfo } from './DetailsInfo';
 import { ErrorMessage } from '../../constants/errorMessages';
 import { BASE_API } from '../../constants/BASE_API';
 import { ECategory, TDetails } from '../../types/types';
+import { Loader } from '@mantine/core';
 
 export function Details() {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ export function Details() {
   return (
     <div className={styles.details}>
       {isPending || isLoading ? (
-        <Loading />
+        <Loader color="teal" size={50} />
       ) : (
         category &&
         id && <DetailsInfo details={details} category={category} id={id} />
