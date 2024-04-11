@@ -1,6 +1,7 @@
 import { useAuth } from '../AuthProvider/index';
 import { useNavigate } from 'react-router-dom';
 import styles from './index.module.css';
+import { Button } from '@mantine/core';
 
 export function AuthStatus() {
   const auth = useAuth();
@@ -20,9 +21,9 @@ export function AuthStatus() {
     <>
       <div className={styles.message}>
         Welcome <span className={styles.username}>{auth.user}</span>
-        <button className={styles.button} onClick={handleSignOut}>
+        <Button variant="filled" onClick={handleSignOut} size="md">
           Sign out
-        </button>
+        </Button>
       </div>
     </>
   );
