@@ -61,27 +61,33 @@ export function Categories() {
   }, [category]);
 
   const sortedDataList = (
-    <ScrollArea
-      h={700}
-      type="auto"
-      scrollbarSize={20}
-      offsetScrollbars
-      scrollHideDelay={6000}
-    >
-      <ul className={styles.categories}>
-        {sortedData.map((item: ItemInterface, index: number) =>
-          sortedData.length - 16 === index + 1 ? (
-            <li ref={lastNodeRef} key={item.id}>
-              <Link to={`/categories/${category}/${item.id}`}>{item.name}</Link>
-            </li>
-          ) : (
-            <li key={item.id}>
-              <Link to={`/categories/${category}/${item.id}`}>{item.name}</Link>
-            </li>
-          ),
-        )}
-      </ul>
-    </ScrollArea>
+    <div className={styles.scrollContainer}>
+      <ScrollArea
+        h={600}
+        type="auto"
+        scrollbarSize={20}
+        scrollHideDelay={6000}
+        className={styles.scrollArea}
+      >
+        <ul className={styles.categories}>
+          {sortedData.map((item: ItemInterface, index: number) =>
+            sortedData.length - 16 === index + 1 ? (
+              <li ref={lastNodeRef} key={item.id + Math.random() * 1000}>
+                <Link to={`/categories/${category}/${item.id}`}>
+                  {item.name}
+                </Link>
+              </li>
+            ) : (
+              <li key={item.id + Math.random() * 1000}>
+                <Link to={`/categories/${category}/${item.id}`}>
+                  {item.name}
+                </Link>
+              </li>
+            ),
+          )}
+        </ul>
+      </ScrollArea>
+    </div>
   );
 
   return (
