@@ -4,7 +4,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthProvider/index';
 import { validateInput } from './../../utils/validate';
 import { ErrorMessage } from '../../constants/errorMessages';
-import { Button } from '@mantine/core';
+import { Button, Input, CloseButton } from '@mantine/core';
+import { IconAt } from '@tabler/icons-react';
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -42,26 +43,43 @@ export const Login: React.FC = () => {
     }
   };
 
+  const handleInputClear = () => {
+    if (username.trim() !== '') {
+      setUsername('');
+    }
+    console.log('clicked');
+  };
+
   return (
     <div className={styles.loginContainer}>
       <form className={styles.loginForm} onSubmit={handleSubmit}>
-        <label className={styles.loginLabel}>
-          Username:{'     '}
-          <input
-            className={styles.loginInput}
+        <div className={styles.loginLabel}>
+          <Input
+            placeholder="Your username"
+            leftSection={<IconAt size={24} />}
             type="text"
+            radius="5"
+            size="md"
             name="username"
             value={username}
             onChange={handleInputChange}
+            rightSection={
+              <CloseButton
+                onClick={handleInputClear}
+                style={{ display: username !== '' ? undefined : 'none' }}
+              >
+                {console.log('Button is visible')}
+              </CloseButton>
+            }
           />
-        </label>
+        </div>
         <div className={styles.buttonContainer}>
           <Button variant="filled" size="md" type="submit" disabled={!!error}>
             Sign In
           </Button>
         </div>
-        {error && <p className={styles.error}>{error}</p>}
       </form>
+      {error && <p className={styles.error}>{error}</p>}
     </div>
   );
 };
