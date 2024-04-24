@@ -5,7 +5,7 @@ import { useGetData } from '../../hooks/useGetData.js';
 import { Sort } from '../../components/Sort/index';
 import { ItemInterface } from '../../types/types';
 import { SortType } from '../../types/types';
-import { Loader } from '@mantine/core';
+import { Loader, ScrollArea } from '@mantine/core';
 
 const sortList: SortType[] = [SortType.Default, SortType.A_Z, SortType.Z_A];
 
@@ -61,19 +61,27 @@ export function Categories() {
   }, [category]);
 
   const sortedDataList = (
-    <ul className={styles.categories}>
-      {sortedData.map((item: ItemInterface, index: number) =>
-        sortedData.length - 16 === index + 1 ? (
-          <li ref={lastNodeRef} key={item.id}>
-            <Link to={`/categories/${category}/${item.id}`}>{item.name}</Link>
-          </li>
-        ) : (
-          <li key={item.id}>
-            <Link to={`/categories/${category}/${item.id}`}>{item.name}</Link>
-          </li>
-        ),
-      )}
-    </ul>
+    <ScrollArea
+      h={700}
+      type="auto"
+      scrollbarSize={20}
+      offsetScrollbars
+      scrollHideDelay={6000}
+    >
+      <ul className={styles.categories}>
+        {sortedData.map((item: ItemInterface, index: number) =>
+          sortedData.length - 16 === index + 1 ? (
+            <li ref={lastNodeRef} key={item.id}>
+              <Link to={`/categories/${category}/${item.id}`}>{item.name}</Link>
+            </li>
+          ) : (
+            <li key={item.id}>
+              <Link to={`/categories/${category}/${item.id}`}>{item.name}</Link>
+            </li>
+          ),
+        )}
+      </ul>
+    </ScrollArea>
   );
 
   return (
