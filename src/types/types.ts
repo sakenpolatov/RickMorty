@@ -5,9 +5,9 @@ export interface ItemInterface {
 }
 
 export enum SortType {
-  Default = 'default',
-  A_Z = 'a-z',
-  Z_A = 'z-a',
+  Default = 'Default',
+  A_Z = 'A-Z',
+  Z_A = 'Z-A',
 }
 
 //Details
