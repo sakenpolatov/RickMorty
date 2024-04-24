@@ -3,9 +3,8 @@ import { Header } from './components/Header/index';
 import { Router } from './Router/index';
 import styles from './app.module.css';
 import { AuthProvider } from './context/AuthProvider';
-import { Loading } from './components/Loading/index';
 import ErrorBoundary from './components/ErrorBoundary/index';
-import { MantineProvider, createTheme } from '@mantine/core';
+import { MantineProvider, createTheme, Loader } from '@mantine/core';
 import '@mantine/core/styles.css';
 const theme = createTheme({
   fontFamily: 'Montserrat, sans-serif',
@@ -19,7 +18,7 @@ const App = () => {
         <AuthProvider>
           <Header />
           <ErrorBoundary>
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<Loader />}>
               <Router />
             </Suspense>
           </ErrorBoundary>
