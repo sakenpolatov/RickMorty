@@ -15,22 +15,9 @@
   align-items: center;
   border-radius: 25px;
   background-color: rgba(168, 168, 168, 0.842);
-  overflow-y: scroll;
+  overflow: hidden;
 }
 
-::-webkit-scrollbar {
-  width: 15px;
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.719);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0);
-}
 .categories {
   max-height: 100%;
   margin-bottom: 20px;
@@ -38,9 +25,10 @@
 }
 
 .sort {
-  position: sticky;
-  right: 1100px;
-  top: 5px;
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  z-index: 9999;
 }
 .categories a {
   font-size: 24px;
@@ -72,4 +60,20 @@
 
 .list > li:focus {
   outline: none;
+}
+
+.scrollContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.scrollArea {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
