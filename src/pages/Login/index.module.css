@@ -12,18 +12,13 @@
 
 .loginForm {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .loginLabel {
   margin: 10px;
-}
-
-.loginInput {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #dddddd9a;
+  width: 80vw;
 }
 
 .buttonContainer {
@@ -31,7 +26,8 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 100%;
+  width: 20vw;
+  margin: 20px;
   font-weight: 800;
   font-family: 'Poppins';
 }
