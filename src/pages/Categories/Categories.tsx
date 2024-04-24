@@ -2,10 +2,9 @@ import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import styles from './categories.module.css';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useGetData } from '../../hooks/useGetData.js';
-import { Sort } from '../../components/Sort/index';
-import { ItemInterface } from '../../types/types';
-import { SortType } from '../../types/types';
+import { ItemInterface, SortType } from '../../types/types';
 import { Loader, ScrollArea } from '@mantine/core';
+import { Selector } from '../../components/Selector/Selector';
 
 const sortList: SortType[] = [SortType.Default, SortType.A_Z, SortType.Z_A];
 
@@ -63,7 +62,7 @@ export function Categories() {
   const sortedDataList = (
     <div className={styles.scrollContainer}>
       <ScrollArea
-        h={600}
+        h={650}
         type="auto"
         scrollbarSize={20}
         scrollHideDelay={6000}
@@ -94,7 +93,7 @@ export function Categories() {
     <div className={styles.content}>
       <div className={styles.list}>
         <div className={styles.sort}>
-          <Sort
+          <Selector
             sortType={sortType}
             onChangeSort={setSortType}
             sortList={sortList}
