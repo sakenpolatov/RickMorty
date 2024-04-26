@@ -1,7 +1,7 @@
 import { ChangeEvent, useState, FormEvent } from 'react';
 import styles from './index.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../context/AuthProvider/index';
+import { useAuth } from '../../context/AuthProvider/AuthProvider';
 import { validateInput } from './../../utils/validate';
 import { ErrorMessage } from '../../constants/errorMessages';
 import { Button, Input, CloseButton } from '@mantine/core';

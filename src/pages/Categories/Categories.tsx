@@ -4,7 +4,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useGetData } from '../../hooks/useGetData.js';
 import { ItemInterface, SortType } from '../../types/types';
 import { Loader, ScrollArea } from '@mantine/core';
-import { Selector } from '../../components/Selector/Selector';
+import { Selector } from '../../components/Selector';
 
 const sortList: SortType[] = [SortType.Default, SortType.A_Z, SortType.Z_A];
 

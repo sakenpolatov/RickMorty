@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
-import { Header } from './components/Header/index';
-import { Router } from './Router/index';
+import { Header } from './components/Header';
+import { Router } from './Router';
 import styles from './app.module.css';
-import { AuthProvider } from './context/AuthProvider';
+import { AuthProvider } from './context/AuthProvider/AuthProvider';
 import { MantineProvider, createTheme, Loader } from '@mantine/core';
 import '@mantine/core/styles.css';
 const theme = createTheme({

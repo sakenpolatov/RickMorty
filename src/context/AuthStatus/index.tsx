@@ -1,4 +1,4 @@
-import { useAuth } from '../AuthProvider/index';
+import { useAuth } from '../AuthProvider/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import styles from './index.module.css';
 import { Button } from '@mantine/core';
