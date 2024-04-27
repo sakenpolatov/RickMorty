@@ -27,7 +27,6 @@ const ASSETS = [
 //install event
 self.addEventListener('install', async () => {
 	const cache = await caches.open(staticCacheName)
-	console.log(ASSETS)
 	await cache.addAll(ASSETS)
 })
 
