@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import icon from '../../assets/rick.svg';
+import icon from '../../assets/images/rick.svg';
 import styles from './index.module.css';
 import { AuthStatus } from '../../context/AuthStatus/index';
 import { PathList } from './PathList';
