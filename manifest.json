@@ -1,0 +1,23 @@
+{
+  "name": "Rick and Morty",
+  "short_name": "Rick&Morty",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "description": "infinity scroll, pwa",
+  "background_color": "#fff",
+  "theme_color": "#56c7fc",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "src/assets/images/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "src/assets/images/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
